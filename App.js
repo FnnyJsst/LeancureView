@@ -16,8 +16,14 @@ export default function App() {
             backgroundColor: '#ffff',
             width: 340,
           },
-          drawerPosition: 'right'
+          drawerPosition: 'right',
+          drawerActiveTintColor: '#ffffff',
+          drawerActiveBackgroundColor: '#ff6600',
+          drawerLabelStyle: {
+            fontWeight: 'bold',
+          },
         }}
+        
         initialRouteName="Home"
       >
         <Drawer.Screen name="Home" component={ProductionView} />
