@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import { View, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { StyleSheet } from 'react-native';
 import ProductionView from './screens/ProductionView';
 import TestView from './screens/TestView';
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.splashContainer}>
+        <Image source={require('./assets/images/screensaver_anim.png')} style={styles.splashImage} />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Drawer.Navigator 
@@ -23,7 +40,6 @@ export default function App() {
             fontWeight: 'bold',
           },
         }}
-        
         initialRouteName="Home"
       >
         <Drawer.Screen name="Home" component={ProductionView} />
@@ -34,6 +50,15 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  splashContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  splashImage: {
+    width: 500,
+    height: 230,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
