@@ -1,11 +1,8 @@
-import React, { useState, useEffect} from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import ProductionView from './screens/ProductionView';
-import TestView from './screens/TestView';
-
-const Drawer = createDrawerNavigator();
+import DrawerNavigator from './components/DrawerNavigator';
+import ScreenSaver from './screens/ScreenSaver';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,32 +16,13 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <View style={styles.splashContainer}>
-        <Image source={require('./assets/images/screensaver_anim.png')} style={styles.splashImage} />
-      </View>
+      <ScreenSaver />
     );
   }
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator 
-        screenOptions={{
-          drawerStyle: {
-            backgroundColor: '#ffff',
-            width: 340,
-          },
-          drawerPosition: 'right',
-          drawerActiveTintColor: '#ffffff',
-          drawerActiveBackgroundColor: '#ff6600',
-          drawerLabelStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-        initialRouteName="Home"
-      >
-        <Drawer.Screen name="Home" component={ProductionView} />
-        <Drawer.Screen name="Test" component={TestView} />
-      </Drawer.Navigator>
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }
