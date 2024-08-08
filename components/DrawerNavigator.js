@@ -2,22 +2,29 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ProductionView from '../screens/ProductionView';
 import Settings from '../screens/Settings';
+import DrawerContent from './DrawerContent';
 
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
   return (
     <Drawer.Navigator 
+      drawerContent={(props) => <DrawerContent {...props} />}
       screenOptions={{
         drawerStyle: {
           backgroundColor: '#ffff',
           width: 540,
+          marginVertical: 25,
+          borderRadius: 10,
         },
         drawerPosition: 'right',
-        drawerActiveTintColor: '#ffffff',
-        drawerActiveBackgroundColor: '#ff6600',
+        drawerActiveTintColor: '#92969d',
+        drawerActiveBackgroundColor: '#efefef', // Ajout de la transparence
         drawerLabelStyle: {
-          fontWeight: 'bold',
+          fontFamily: 'proximanovaexcn-regular.otf',
+        },
+        drawerItemStyle: {
+          marginHorizontal: 40,
         },
       }}
       initialRouteName="Home"
