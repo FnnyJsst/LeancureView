@@ -10,7 +10,16 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator 
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#ffff',
+            width: 340,
+          },
+          drawerPosition: 'right'
+        }}
+        initialRouteName="Home"
+      >
         <Drawer.Screen name="Home" component={ProductionView} />
         <Drawer.Screen name="Test" component={TestView} />
       </Drawer.Navigator>
