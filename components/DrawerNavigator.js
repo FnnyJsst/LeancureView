@@ -1,7 +1,6 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ProductionView from '../screens/ProductionView';
-import Settings from '../screens/Settings';
 import DrawerContent from './DrawerContent';
 
 const Drawer = createDrawerNavigator();
@@ -30,7 +29,6 @@ export default function DrawerNavigator() {
       initialRouteName="Home"
     >
       <Drawer.Screen name="Production view" component={ProductionView} />
-      <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
   );
 }
