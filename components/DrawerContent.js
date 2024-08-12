@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import Entypo from '@expo/vector-icons/Entypo';
+import Feather from '@expo/vector-icons/Feather';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import ChannelsImport from './modals/ChannelsImport';
 
@@ -18,14 +19,15 @@ export default function DrawerContent(props) {
   };
 
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContent}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
           <Ionicons name="arrow-back" size={20} />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Channels Management</Text>
+        <Ionicons name="arrow-back" size={20} style={styles.leftArrowIcon} />
+        <Text style={styles.headerText}>CHANNELS MANAGEMENT</Text>
         <TouchableOpacity onPress={openModal}>
-            <Fontisto name="import" size={20} style={styles.icon} />
+            <Feather name="download" size={20} style={styles.icon} />
           </TouchableOpacity>
         <View style={styles.iconContainer}>
           <TouchableOpacity onPress={() => console.log('+ pressed')}>
@@ -40,26 +42,39 @@ export default function DrawerContent(props) {
 }
 
 const styles = StyleSheet.create({
+  drawerContent: {
+    paddingTop: 25,
+  },
   headerContainer: {
     height: 75,
-    marginLeft: 25,
-    marginTop: -15,
+    marginVertical: 25,
+    marginHorizontal: 25,
+    paddingHorizontal: 15,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#23262f',
+    borderRadius: 5,
+  },
+  leftArrowIcon: {
+    marginLeft: 10,
+    color: '#fff',
   },
   headerText: {
     fontSize: 20,
     marginLeft: 15,
-    fontFamily: 'Roboto-Bold',
+    fontFamily: 'Montserrat',
+    color: "#fff",
     fontWeight: 'bold',
     flex: 1,
+    textAlign: 'center',
   },
   iconContainer: {
     flexDirection: 'row',
-    marginRight: 15,
+    marginRight: 25,
   },
   icon: {
-    marginLeft: 15,
+    marginLeft: 20,
     fontWeight: 'bold',
+    color: '#fff',
   },
 });

@@ -12,8 +12,7 @@ export default function DrawerNavigator() {
       screenOptions={{
         drawerStyle: {
           backgroundColor: '#ffff',
-          width: 540,
-          marginVertical: 25,
+          width: '100%',
           borderRadius: 10,
         },
         drawerPosition: 'right',
