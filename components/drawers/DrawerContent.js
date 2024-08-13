@@ -5,13 +5,13 @@ import { Ionicons } from '@expo/vector-icons';
 import Entypo from '@expo/vector-icons/Entypo';
 import Feather from '@expo/vector-icons/Feather';
 import { useFonts } from 'expo-font';
-import ChannelsImport from './modals/ChannelsImport';
+import ChannelsImport from '../modals/ChannelsImport';
 
 export default function DrawerContent(props) {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const [fontsLoaded, error] = useFonts({
-    'Montserrat': require('../assets/fonts/Montserrat-Regular.ttf'),
+    'Montserrat': require('../../assets/fonts/Montserrat-Regular.ttf'),
   });
 
   const openModal = () => {

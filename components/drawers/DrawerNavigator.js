@@ -1,10 +1,10 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import { useUrls } from '../context/UrlContext';
-import WebViewScreen from '../screens/WebViewScreen'; 
-import NoChannelScreen from '../screens/NoChannelScreen'; // Import fallback screen
+import { useUrls } from '../../context/UrlContext';
+import WebViewScreen from '../../screens/WebViewScreen'; 
+import NoChannelScreen from '../../screens/NoChannelScreen';
+import DrawerLabel from './DrawerLabel'; // Import the custom drawer label
 
 const Drawer = createDrawerNavigator();
 
@@ -37,6 +37,16 @@ export default function DrawerNavigator() {
             name={`WebView ${index + 1}`} 
             component={WebViewScreen}
             initialParams={{ url }} 
+            options={{
+              drawerLabel: ({ color, size }) => (
+                <DrawerLabel 
+                  label={`WebView ${index + 1}`} 
+                  iconName="chrome" 
+                  iconColor={color} 
+                  iconSize={size} 
+                />
+              ),
+            }}
           />
         ))
       ) : (
@@ -44,8 +54,13 @@ export default function DrawerNavigator() {
           name="No Channel" 
           component={NoChannelScreen}
           options={{
-            drawerIcon: ({ color, size }) => (
-              <AntDesign name="exclamationcircleo" size={size} color={color} />
+            drawerLabel: ({ color, size }) => (
+              <DrawerLabel 
+                label="No Channel" 
+                iconName="exclamationcircleo" 
+                iconColor={color} 
+                iconSize={size} 
+              />
             ),
           }}
         />

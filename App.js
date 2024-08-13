@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import DrawerNavigator from './components/DrawerNavigator';
+import DrawerNavigator from './components/drawers/DrawerNavigator';
 import ScreenSaver from './screens/ScreenSaver';
 import { UrlProvider } from './context/UrlContext';
 
