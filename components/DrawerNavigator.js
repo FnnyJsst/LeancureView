@@ -1,11 +1,10 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import ProductionView from '../screens/ProductionView';
 import DrawerContent from './DrawerContent';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useUrls } from '../context/UrlContext';
 import WebViewScreen from '../screens/WebViewScreen'; 
-import ScreenSaver from '../screens/ScreenSaver';
+import NoChannelScreen from '../screens/NoChannelScreen'; // Import fallback screen
 
 const Drawer = createDrawerNavigator();
 
@@ -31,28 +30,26 @@ export default function DrawerNavigator() {
       }}
       initialRouteName="Home"
     >
-      <Drawer.Screen 
-        name="Home" 
-        component={ScreenSaver}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <AntDesign name="up" size={size} color={color} />
-          ),
-        }}
-      />
-      {urls.map((url, index) => (
+      {urls.length > 0 ? (
+        urls.map((url, index) => (
+          <Drawer.Screen 
+            key={index}
+            name={`WebView ${index + 1}`} 
+            component={WebViewScreen}
+            initialParams={{ url }} 
+          />
+        ))
+      ) : (
         <Drawer.Screen 
-          key={index}
-          name={`WebView ${index + 1}`} 
-          component={WebViewScreen}
-          initialParams={{ url }} 
+          name="No Channel" 
+          component={NoChannelScreen}
           options={{
             drawerIcon: ({ color, size }) => (
-              <AntDesign name="earth" size={size} color={color} />
+              <AntDesign name="exclamationcircleo" size={size} color={color} />
             ),
           }}
         />
-      ))}
+      )}
     </Drawer.Navigator>
   );
 }
