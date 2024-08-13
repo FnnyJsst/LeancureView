@@ -4,7 +4,7 @@ import ModalInput from '../inputs/ModalInput';
 import Button from '../buttons/Button';
 import { useUrls } from '../../context/UrlContext';
 
-export default function ChannelsImport({ visible, onClose }) {
+export default function AddChannels({ visible, onClose }) {
   const [url, setUrl] = useState('');
   const { addUrl } = useUrls();
 
@@ -23,7 +23,11 @@ export default function ChannelsImport({ visible, onClose }) {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalText}>Import Channels</Text>
+          <Text style={styles.modalText}>Create a Channel</Text>
+          <View style={styles.inputContainer}>
+            <Text style={styles.text}>Name</Text>
+            <ModalInput />
+          </View>
           <View style={styles.inputContainer}>
             <Text style={styles.text}>URL</Text>
             <ModalInput value={url} onChangeText={setUrl} />

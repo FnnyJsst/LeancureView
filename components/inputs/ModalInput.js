@@ -1,6 +1,6 @@
 import { TextInput, StyleSheet } from "react-native";
 
-export default function ImportChannelsInput({ value, onChangeText }) {
+export default function ModalInput({ value, onChangeText }) {
   return (
     <TextInput
       style={styles.input}
