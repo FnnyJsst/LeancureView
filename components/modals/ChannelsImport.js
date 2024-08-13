@@ -19,8 +19,8 @@ export default function ChannelsImport({ visible, onClose }) {
             <ImportChannelsInput />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="Ok" backgroundColor="#FF6600" color="white" borderColor="#FF6600"/>
-            <Button title="Cancel" backgroundColor="white" color="#cecdcd" borderColor="#cecdcd" onPress={onClose} />
+            <Button title="Ok" backgroundColor="#FF4500" color="white"/>
+            <Button title="Cancel" backgroundColor="#d9d9d9" color="black" onPress={onClose} />
           </View>
         </View>
       </View>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   modalContent: {
     width: 400,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: '#f4f4f4',
     borderRadius: 10,
     alignItems: 'center',
   },

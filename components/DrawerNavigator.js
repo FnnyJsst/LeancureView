@@ -2,6 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ProductionView from '../screens/ProductionView';
 import DrawerContent from './DrawerContent';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,9 +18,8 @@ export default function DrawerNavigator() {
         },
         drawerPosition: 'right',
         drawerActiveTintColor: '#92969d',
-        drawerActiveBackgroundColor: '#efefef', // Ajout de la transparence
+        drawerActiveBackgroundColor: '#f4f4f4', 
         drawerLabelStyle: {
-          fontFamily: 'proximanovaexcn-regular.otf',
         },
         drawerItemStyle: {
           marginHorizontal: 40,
@@ -27,7 +27,15 @@ export default function DrawerNavigator() {
       }}
       initialRouteName="Home"
     >
-      <Drawer.Screen name="Production view" component={ProductionView} />
+      <Drawer.Screen 
+        name="Production view" 
+        component={ProductionView}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <AntDesign name="up" size={size} color={color} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 }

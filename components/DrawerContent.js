@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import Entypo from '@expo/vector-icons/Entypo';
 import Feather from '@expo/vector-icons/Feather';
-import Fontisto from '@expo/vector-icons/Fontisto';
+import { useFonts } from 'expo-font';
 import ChannelsImport from './modals/ChannelsImport';
 
 export default function DrawerContent(props) {
-
   const [isModalVisible, setModalVisible] = useState(false);
+
+  const [fontsLoaded, error] = useFonts({
+    'Montserrat': require('../assets/fonts/Montserrat-Regular.ttf'),
+  });
 
   const openModal = () => {
     setModalVisible(true);
@@ -18,17 +21,20 @@ export default function DrawerContent(props) {
     setModalVisible(false);
   };
 
+  if (!fontsLoaded) {
+    return <ActivityIndicator size="small" color="#0000ff" />;  // You can customize this to your needs
+  }
+
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContent}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
-          <Ionicons name="arrow-back" size={20} />
+          <Ionicons name="arrow-back" size={20} style={styles.leftArrowIcon} />
         </TouchableOpacity>
-        <Ionicons name="arrow-back" size={20} style={styles.leftArrowIcon} />
         <Text style={styles.headerText}>CHANNELS MANAGEMENT</Text>
         <TouchableOpacity onPress={openModal}>
-            <Feather name="download" size={20} style={styles.icon} />
-          </TouchableOpacity>
+          <Feather name="download" size={20} style={styles.icon} />
+        </TouchableOpacity>
         <View style={styles.iconContainer}>
           <TouchableOpacity onPress={() => console.log('+ pressed')}>
             <Entypo name="add-to-list" size={20} style={styles.icon} />
