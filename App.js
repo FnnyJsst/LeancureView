@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerNavigator from './components/DrawerNavigator';
 import ScreenSaver from './screens/ScreenSaver';
+import { UrlProvider } from './context/UrlContext';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,9 +22,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <DrawerNavigator />
-    </NavigationContainer>
+    <UrlProvider>
+      <NavigationContainer>
+        <DrawerNavigator />
+      </NavigationContainer>
+    </UrlProvider>
   );
 }
 

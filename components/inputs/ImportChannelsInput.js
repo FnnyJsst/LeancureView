@@ -1,10 +1,12 @@
 import { TextInput, StyleSheet } from "react-native";
 
-export default function ImportChannelsInput() {
+export default function ImportChannelsInput({ value, onChangeText }) {
   return (
     <TextInput
-    style={styles.input}
-    placeholder="Paste your channels here"
+      style={styles.input}
+      placeholder="Paste your channels here"
+      value={value}
+      onChangeText={onChangeText}
     />
   );
 }
