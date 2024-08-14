@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import DrawerNavigator from './components/drawers/DrawerNavigator';
 import ScreenSaver from './screens/ScreenSaver';
 import { UrlProvider } from './context/UrlContext';
 import ParameterButton from './components/buttons/ParameterButton';
+import SettingsScreen from './screens/SettingsScreen'; // Importez votre page
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,10 +31,11 @@ export default function App() {
     <UrlProvider>
       <SafeAreaProvider>
         <NavigationContainer>
-          <View style={styles.container}>
-            <DrawerNavigator />
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={DrawerNavigator} />
+            <Stack.Screen name="SettingsScreen" component={SettingsScreen} /> 
+          </Stack.Navigator>
             <ParameterButton />
-          </View>
         </NavigationContainer>
       </SafeAreaProvider>
     </UrlProvider>
