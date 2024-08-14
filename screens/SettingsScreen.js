@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import TitleSettings from '../components/text/TitleSettings';
@@ -31,12 +31,14 @@ export default function SettingsScreen() {
         <SettingsButton 
           title = "Channels configuration"
           icon={<Octicons name="tools" size={24} color="black" />} />
+        <Text style={styles.text}>Read-only access</Text>
         <SettingsButton 
           title = "Access to the list of channels from the main interface"
           icon={<FontAwesome5 name="list-alt" size={24} color="black" />} />
         <SettingsButton 
           title = "Auto-refresh"
           icon={<MaterialCommunityIcons name="reload" size={24} color="black" />} />
+          <Text style={styles.text}>Never</Text>
         <SettingsButton 
           title = "View channels list"
           icon={<Ionicons name="list" size={24} />} />
@@ -45,6 +47,7 @@ export default function SettingsScreen() {
         <SettingsButton 
           title = "Password"
           icon={<Feather name="lock" size={24} />} />
+        <Text style={styles.text}>No password has been defined</Text>
         <TitleSettings 
           title="INFORMATION" />
       </View>
@@ -53,5 +56,12 @@ export default function SettingsScreen() {
 }
 
 const styles = StyleSheet.create({
-
+  text: {
+    fontFamily: 'Montserrat-medium',
+    paddingLeft: 45,
+    marginLeft: 30,
+    marginTop: 5,
+    fontSize: 14,
+    color: "#6E7280",
+  },
 });
