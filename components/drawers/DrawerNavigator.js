@@ -4,7 +4,7 @@ import DrawerContent from './DrawerContent';
 import { useUrls } from '../../context/UrlContext';
 import WebViewScreen from '../../screens/WebViewScreen'; 
 import NoChannelScreen from '../../screens/NoChannelScreen';
-import DrawerLabel from './DrawerLabel'; // Import the custom drawer label
+import DrawerLabel from './DrawerLabel'; 
 
 const Drawer = createDrawerNavigator();
 

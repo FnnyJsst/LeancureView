@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import DrawerNavigator from './components/drawers/DrawerNavigator';
 import ScreenSaver from './screens/ScreenSaver';
 import { UrlProvider } from './context/UrlContext';
+import ParameterButton from './components/buttons/ParameterButton';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,14 +25,22 @@ export default function App() {
 
   return (
     <UrlProvider>
-      <NavigationContainer>
-        <DrawerNavigator />
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <View style={styles.container}>
+            <DrawerNavigator />
+            <ParameterButton />
+          </View>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </UrlProvider>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   splashContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -39,11 +49,6 @@ const styles = StyleSheet.create({
   splashImage: {
     width: 500,
     height: 230,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   text: {
     fontSize: 20,

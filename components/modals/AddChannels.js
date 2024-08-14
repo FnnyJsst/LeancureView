@@ -23,7 +23,7 @@ export default function AddChannels({ visible, onClose }) {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalText}>Create a Channel</Text>
+          <Text style={styles.modalText}>Create a new channel</Text>
           <View style={styles.inputContainer}>
             <Text style={styles.text}>Name</Text>
             <ModalInput />
