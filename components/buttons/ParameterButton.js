@@ -3,7 +3,6 @@ import { TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import SettingsScreen from '../../screens/SettingsScreen';
 
 export default function ParameterButton() {
   const navigation = useNavigation();

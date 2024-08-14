@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
-import { Ionicons } from '@expo/vector-icons';
-import Entypo from '@expo/vector-icons/Entypo';
-import Feather from '@expo/vector-icons/Feather';
 import { useFonts } from 'expo-font';
 import ChannelsImport from '../modals/ChannelsImport';
 import AddChannels from '../modals/AddChannels';
+import Header from '../Header'; // Importer le nouveau composant Header
 
 export default function DrawerContent(props) {
   const [isImportModalVisible, setImportModalVisible] = useState(false);
@@ -14,6 +12,7 @@ export default function DrawerContent(props) {
 
   const [fontsLoaded, error] = useFonts({
     'Montserrat': require('../../assets/fonts/Montserrat-Regular.ttf'),
+    'Montserrat-medium': require('../../assets/fonts/Montserrat-Medium.ttf'),
   });
 
   const openImportModal = () => {
@@ -36,20 +35,13 @@ export default function DrawerContent(props) {
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContent}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
-          <Ionicons name="arrow-back" size={20} style={styles.leftArrowIcon} />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>CHANNELS MANAGEMENT</Text>
-        <TouchableOpacity onPress={openImportModal}>
-          <Feather name="download" size={20} style={styles.icon} />
-        </TouchableOpacity>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={openAddModal}>
-            <Entypo name="add-to-list" size={20} style={styles.icon} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header 
+        title="CHANNELS MANAGEMENT" 
+        onBackPress={() => props.navigation.closeDrawer()} 
+        onImportPress={openImportModal} 
+        onAddPress={openAddModal} 
+        showIcons={true} // Afficher les icônes
+      />
       <DrawerItemList {...props} />
       <ChannelsImport visible={isImportModalVisible} onClose={closeImportModal} />
       <AddChannels visible={isAddModalVisible} onClose={closeAddModal} />
@@ -60,37 +52,5 @@ export default function DrawerContent(props) {
 const styles = StyleSheet.create({
   drawerContent: {
     paddingTop: 25,
-  },
-  headerContainer: {
-    height: 75,
-    marginVertical: 25,
-    marginHorizontal: 25,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#23262f',
-    borderRadius: 5,
-  },
-  leftArrowIcon: {
-    marginLeft: 10,
-    color: '#fff',
-  },
-  headerText: {
-    fontSize: 20,
-    marginLeft: 15,
-    fontFamily: 'Montserrat',
-    color: "#fff",
-    fontWeight: 'bold',
-    flex: 1,
-    textAlign: 'center',
-  },
-  iconContainer: {
-    flexDirection: 'row',
-    marginRight: 25,
-  },
-  icon: {
-    marginLeft: 20,
-    fontWeight: 'bold',
-    color: '#fff',
   },
 });

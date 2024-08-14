@@ -32,8 +32,13 @@ export default function App() {
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={DrawerNavigator} />
-            <Stack.Screen name="SettingsScreen" component={SettingsScreen} /> 
+            <Stack.Screen 
+              name="Home" 
+              component={DrawerNavigator}
+              options={{ headerShown: false }} />
+            <Stack.Screen 
+              name="SettingsScreen" 
+              component={SettingsScreen} /> 
           </Stack.Navigator>
             <ParameterButton />
         </NavigationContainer>
