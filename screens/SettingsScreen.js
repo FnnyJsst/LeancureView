@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, BackHandler} from 'react-native';
 import Header from '../components/Header';
 import TitleSettings from '../components/text/TitleSettings';
 import SettingsButton from '../components/buttons/SettingsButton';
@@ -20,6 +20,10 @@ export default function SettingsScreen() {
     setIsEnabled((previousState) => !previousState);
   };
 
+  const handleQuitApp = () => {
+    BackHandler.exitApp();
+  };
+
   return (
     <View style={styles.container}>
       <Header 
@@ -30,6 +34,7 @@ export default function SettingsScreen() {
         <SettingsButton
           title="Quit app"
           icon={<MaterialIcons name="exit-to-app" size={24} color="black" />}
+          onPress={handleQuitApp}
         />
         <TitleSettings title="CHANNELS MANAGEMENT" />
         <View style={styles.configContainer}>
