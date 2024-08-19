@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import TitleSettings from '../components/text/TitleSettings';
 import SettingsButton from '../components/buttons/SettingsButton';
+import Toggle from '../components/Toggle';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Octicons from '@expo/vector-icons/Octicons';
@@ -14,6 +14,13 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 
 export default function SettingsScreen() {
+
+  const [isEnabled, setIsEnabled] = React.useState(false);
+
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+  }
+
   return (
     <View>
       <Header
@@ -28,13 +35,19 @@ export default function SettingsScreen() {
           icon={<MaterialIcons name="exit-to-app" size={24} color="black" />} />
         <TitleSettings 
           title="CHANNELS MANAGEMENT" />
-        <SettingsButton 
-          title = "Channels configuration"
-          icon={<Octicons name="tools" size={24} color="black" />} />
+        <View style={styles.configContainer}>
+          <SettingsButton 
+            title = "Channels configuration"
+            icon={<Octicons name="tools" size={24} color="black" />} />
+          <Toggle />
+        </View>
         <Text style={styles.text}>Read-only access</Text>
-        <SettingsButton 
+        <View style={styles.configContainer}>
+          <SettingsButton 
           title = "Access to the list of channels from the main interface"
           icon={<FontAwesome5 name="list-alt" size={24} color="black" />} />
+          <Toggle />
+        </View>
         <SettingsButton 
           title = "Auto-refresh"
           icon={<MaterialCommunityIcons name="reload" size={24} color="black" />} />
@@ -63,5 +76,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 14,
     color: "#6E7280",
+  },
+  configContainer: {
+    flexDirection: 'row',
   },
 });
