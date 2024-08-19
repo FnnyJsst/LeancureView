@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, ActivityIndicator } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { useFonts } from 'expo-font';
 import ChannelsImport from '../modals/ChannelsImport';
 import AddChannels from '../modals/AddChannels';
-import Header from '../Header'; // Importer le nouveau composant Header
+import Header from '../Header'; 
 
 export default function DrawerContent(props) {
   const [isImportModalVisible, setImportModalVisible] = useState(false);

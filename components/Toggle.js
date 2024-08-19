@@ -1,4 +1,3 @@
-import React from "react";
 import { View, Switch, StyleSheet } from "react-native";
 
 export default function Toggle(isEnabled, toggleSwitch) {

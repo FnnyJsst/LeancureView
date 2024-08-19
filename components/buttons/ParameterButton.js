@@ -1,7 +1,5 @@
-import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function ParameterButton() {

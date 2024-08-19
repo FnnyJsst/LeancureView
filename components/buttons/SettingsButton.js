@@ -1,11 +1,9 @@
-import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import { StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export default function SettingsButton({ icon, title }) {
+export default function SettingsButton({ icon, title, onPress }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
         {icon && <View style={styles.iconContainer}>{icon}</View>}
         <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>

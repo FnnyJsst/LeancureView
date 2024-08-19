@@ -1,4 +1,3 @@
-import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
 import { useUrls } from '../../context/UrlContext';
