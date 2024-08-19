@@ -12,11 +12,13 @@ import Octicons from '@expo/vector-icons/Octicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
+import TimerModal from '../components/modals/TimerModal';
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
   const [accessText, setAccessText] = useState('Read-only access');
+  const [modalVisible, setModalVisible] = useState(false);
 
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
@@ -25,6 +27,14 @@ export default function SettingsScreen() {
 
   const handleQuitApp = () => {
     BackHandler.exitApp();
+  };
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -63,6 +73,7 @@ export default function SettingsScreen() {
           <SettingsButton
             title="Auto-refresh"
             icon={<MaterialCommunityIcons name="reload" size={24} color="black" />}
+            onPress={openModal}
           />
           <Text style={styles.text}>Never</Text>
           <SettingsButton
@@ -80,6 +91,7 @@ export default function SettingsScreen() {
           <TitleSettings title="INFORMATION" />
         </View>
       </View>
+      <TimerModal visible={modalVisible} onClose={closeModal} />
     </ScrollView>
   );
 }
