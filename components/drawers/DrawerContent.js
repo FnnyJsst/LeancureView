@@ -40,7 +40,7 @@ export default function DrawerContent(props) {
         onBackPress={() => props.navigation.closeDrawer()} 
         onImportPress={openImportModal} 
         onAddPress={openAddModal} 
-        showIcons={true} // Afficher les icônes
+        showIcons={true} 
       />
       <DrawerItemList {...props} />
       <ChannelsImport visible={isImportModalVisible} onClose={closeImportModal} />

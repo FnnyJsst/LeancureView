@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
 import { useUrls } from '../../context/UrlContext';
@@ -7,7 +8,7 @@ import DrawerLabel from './DrawerLabel';
 
 const Drawer = createDrawerNavigator();
 
-export const getDrawerScreens = (urls) => {
+export const getDrawerScreens = (urls, onMoveUp, onMoveDown, onDelete) => {
   if (urls.length > 0) {
     return urls.map((url, index) => ({
       name: `WebView ${index + 1}`,
@@ -20,6 +21,9 @@ export const getDrawerScreens = (urls) => {
             iconName="chrome" 
             iconColor={color} 
             iconSize={size} 
+            onMoveUp={() => onMoveUp(index)}
+            onMoveDown={() => onMoveDown(index)}
+            onDelete={() => onDelete(index)}
           />
         ),
       },
@@ -44,7 +48,32 @@ export const getDrawerScreens = (urls) => {
 
 export default function DrawerNavigator() {
   const { urls } = useUrls();
-  const screens = getDrawerScreens(urls);
+  const [screensOrder, setScreensOrder] = useState(urls);
+
+  const handleMoveUp = (index) => {
+    if (index > 0) {
+      const newOrder = [...screensOrder];
+      const [movedScreen] = newOrder.splice(index, 1);
+      newOrder.unshift(movedScreen);
+      setScreensOrder(newOrder);
+    }
+  };
+
+  const handleMoveDown = (index) => {
+    if (index < screensOrder.length - 1) {
+      const newOrder = [...screensOrder];
+      const [movedScreen] = newOrder.splice(index, 1);
+      newOrder.splice(index + 1, 0, movedScreen);
+      setScreensOrder(newOrder);
+    }
+  };
+
+  const handleDelete = (index) => {
+    const newOrder = screensOrder.filter((_, i) => i !== index);
+    setScreensOrder(newOrder);
+  };
+
+  const screens = getDrawerScreens(screensOrder, handleMoveUp, handleMoveDown, handleDelete);
 
   return (
     <Drawer.Navigator 

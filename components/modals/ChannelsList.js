@@ -16,7 +16,7 @@ export default function ChannelsList({ visible, onClose, screens }) {
           {screens.map((screen, index) => (
             <Text key={index} style={styles.screenName}>{screen}</Text>
           ))}
-          <Button title="Close" backgroundColor="#FF4500" color="white" onPress={onClose} />
+          <Button title="Close" backgroundColor="#d9d9d9" color="black" onPress={onClose} />
         </View>
       </View>
     </Modal>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '30%',
-    backgroundColor: 'white',
+    backgroundColor: '#f4f4f4',
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',

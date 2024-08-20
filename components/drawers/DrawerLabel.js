@@ -1,20 +1,27 @@
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const DrawerLabel = ({ label, iconName, iconColor, iconSize }) => (
+const DrawerLabel = ({ label, iconName, iconColor, iconSize, onMoveUp, onMoveDown, onDelete }) => (
   <View style={styles.container}>
     <Text style={styles.label}>{label}</Text>
     {label !== "No Channel" && (
       <>
         <View style={styles.arrowContainer}>
-          <AntDesign name="up" size={20} color="black" style={styles.up} />
-          <AntDesign name="down" size={20} color="black" />
+          <TouchableOpacity onPress={onMoveUp}>
+            <AntDesign name="up" size={20} color="black" style={styles.up} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onMoveDown}>
+            <AntDesign name="down" size={20} color="black" />
+          </TouchableOpacity>
         </View>
         <View style={styles.iconsContainer}>
           <EvilIcons name="pencil" size={25} color="black" style={styles.pencil}/>
-          <Ionicons name="trash-outline" size={20} color="black" />
+          <TouchableOpacity onPress={onDelete}>
+            <Ionicons name="trash-outline" size={20} color="black" />
+          </TouchableOpacity>
         </View>
       </>
     )}
@@ -33,20 +40,17 @@ const styles = StyleSheet.create({
   },
   arrowContainer: {
     flexDirection: 'row',
-    marginLeft: 'auto', 
+    marginLeft: 'auto',
   },
   up: {
-    marginRight: 8, 
+    marginRight: 10,
   },
   iconsContainer: {
     flexDirection: 'row',
-    marginLeft: '10%', 
+    marginLeft: 10,
   },
   pencil: {
-    marginRight: 8, 
-  },
-  icon: {
-    marginLeft: 5, 
+    marginRight: 10,
   },
 });
 
