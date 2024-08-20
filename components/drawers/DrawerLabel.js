@@ -4,7 +4,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const DrawerLabel = ({ label, iconName, iconColor, iconSize, onMoveUp, onMoveDown, onDelete }) => (
+const DrawerLabel = ({ label, iconName, iconColor, iconSize, onMoveUp, onMoveDown, onEdit, onDelete }) => (
   <View style={styles.container}>
     <Text style={styles.label}>{label}</Text>
     {label !== "No Channel" && (
@@ -18,7 +18,9 @@ const DrawerLabel = ({ label, iconName, iconColor, iconSize, onMoveUp, onMoveDow
           </TouchableOpacity>
         </View>
         <View style={styles.iconsContainer}>
-          <EvilIcons name="pencil" size={25} color="black" style={styles.pencil}/>
+          <TouchableOpacity onPress={onEdit}>
+            <EvilIcons name="pencil" size={25} color="black" style={styles.pencil}/>
+          </TouchableOpacity>
           <TouchableOpacity onPress={onDelete}>
             <Ionicons name="trash-outline" size={20} color="black" />
           </TouchableOpacity>

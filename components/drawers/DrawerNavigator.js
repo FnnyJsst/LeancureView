@@ -5,10 +5,11 @@ import { useUrls } from '../../context/UrlContext';
 import WebViewScreen from '../../screens/WebViewScreen'; 
 import NoChannelScreen from '../../screens/NoChannelScreen';
 import DrawerLabel from './DrawerLabel'; 
+import EditChannel from '../modals/EditChannel';
 
 const Drawer = createDrawerNavigator();
 
-export const getDrawerScreens = (urls, onMoveUp, onMoveDown, onDelete) => {
+export const getDrawerScreens = (urls, onMoveUp, onMoveDown, onEdit, onDelete) => {
   if (urls.length > 0) {
     return urls.map((url, index) => ({
       name: `WebView ${index + 1}`,
@@ -23,6 +24,7 @@ export const getDrawerScreens = (urls, onMoveUp, onMoveDown, onDelete) => {
             iconSize={size} 
             onMoveUp={() => onMoveUp(index)}
             onMoveDown={() => onMoveDown(index)}
+            onEdit={() => onEdit(index)}
             onDelete={() => onDelete(index)}
           />
         ),
@@ -47,8 +49,10 @@ export const getDrawerScreens = (urls, onMoveUp, onMoveDown, onDelete) => {
 };
 
 export default function DrawerNavigator() {
-  const { urls } = useUrls();
+  const { urls, updateUrl } = useUrls();
   const [screensOrder, setScreensOrder] = useState(urls);
+  const [isEditModalVisible, setEditModalVisible] = useState(false);
+  const [currentEditIndex, setCurrentEditIndex] = useState(null);
 
   const handleMoveUp = (index) => {
     if (index > 0) {
@@ -73,36 +77,57 @@ export default function DrawerNavigator() {
     setScreensOrder(newOrder);
   };
 
-  const screens = getDrawerScreens(screensOrder, handleMoveUp, handleMoveDown, handleDelete);
+  const handleEdit = (index) => {
+    setCurrentEditIndex(index);
+    setEditModalVisible(true);
+  };
+
+  const handleEditSave = (newUrl) => {
+    const newOrder = [...screensOrder];
+    newOrder[currentEditIndex] = newUrl;
+    setScreensOrder(newOrder);
+    updateUrl(currentEditIndex, newUrl); // Assuming updateUrl is a function in useUrls context
+    setEditModalVisible(false);
+  };
+
+  const screens = getDrawerScreens(screensOrder, handleMoveUp, handleMoveDown, handleEdit, handleDelete);
 
   return (
-    <Drawer.Navigator 
-      drawerContent={(props) => <DrawerContent {...props} />}
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: '#ffff',
-          width: '100%',
-          borderRadius: 10,
-        },
-        drawerPosition: 'right',
-        drawerActiveTintColor: '#92969d',
-        drawerActiveBackgroundColor: '#f4f4f4', 
-        drawerLabelStyle: {},
-        drawerItemStyle: {
-          marginHorizontal: 40,
-        },
-      }}
-      initialRouteName="Home"
-    >
-      {screens.map((screen, index) => (
-        <Drawer.Screen 
-          key={index}
-          name={screen.name}
-          component={screen.component}
-          initialParams={screen.initialParams}
-          options={screen.options}
-        />
-      ))}
-    </Drawer.Navigator>
+    <>
+      <Drawer.Navigator 
+        drawerContent={(props) => <DrawerContent {...props} />}
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#ffff',
+            width: '100%',
+            borderRadius: 10,
+          },
+          drawerPosition: 'right',
+          drawerActiveTintColor: '#92969d',
+          drawerActiveBackgroundColor: '#f4f4f4', 
+          drawerLabelStyle: {},
+          drawerItemStyle: {
+            marginHorizontal: 40,
+          },
+        }}
+        initialRouteName="Home"
+      >
+        {screens.map((screen, index) => (
+          <Drawer.Screen 
+            key={index}
+            name={screen.name}
+            component={screen.component}
+            initialParams={screen.initialParams}
+            options={screen.options}
+          />
+        ))}
+      </Drawer.Navigator>
+      <EditChannel 
+        visible={isEditModalVisible} 
+        onClose={() => setEditModalVisible(false)} 
+        onSave={handleEditSave} 
+        initialUrl={screensOrder[currentEditIndex]}
+      />
+    </>
   );
 }
