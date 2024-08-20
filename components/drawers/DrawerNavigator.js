@@ -7,8 +7,44 @@ import DrawerLabel from './DrawerLabel';
 
 const Drawer = createDrawerNavigator();
 
+export const getDrawerScreens = (urls) => {
+  if (urls.length > 0) {
+    return urls.map((url, index) => ({
+      name: `WebView ${index + 1}`,
+      component: WebViewScreen,
+      initialParams: { url },
+      options: {
+        drawerLabel: ({ color, size }) => (
+          <DrawerLabel 
+            label={`WebView ${index + 1}`} 
+            iconName="chrome" 
+            iconColor={color} 
+            iconSize={size} 
+          />
+        ),
+      },
+    }));
+  } else {
+    return [{
+      name: "No Channel",
+      component: NoChannelScreen,
+      options: {
+        drawerLabel: ({ color, size }) => (
+          <DrawerLabel 
+            label="No Channel" 
+            iconName="exclamationcircleo" 
+            iconColor={color} 
+            iconSize={size} 
+          />
+        ),
+      },
+    }];
+  }
+};
+
 export default function DrawerNavigator() {
   const { urls } = useUrls();
+  const screens = getDrawerScreens(urls);
 
   return (
     <Drawer.Navigator 
@@ -29,41 +65,15 @@ export default function DrawerNavigator() {
       }}
       initialRouteName="Home"
     >
-      {urls.length > 0 ? (
-        urls.map((url, index) => (
-          <Drawer.Screen 
-            key={index}
-            name={`WebView ${index + 1}`} 
-            component={WebViewScreen}
-            initialParams={{ url }} 
-            options={{
-              drawerLabel: ({ color, size }) => (
-                <DrawerLabel 
-                  label={`WebView ${index + 1}`} 
-                  iconName="chrome" 
-                  iconColor={color} 
-                  iconSize={size} 
-                />
-              ),
-            }}
-          />
-        ))
-      ) : (
+      {screens.map((screen, index) => (
         <Drawer.Screen 
-          name="No Channel" 
-          component={NoChannelScreen}
-          options={{
-            drawerLabel: ({ color, size }) => (
-              <DrawerLabel 
-                label="No Channel" 
-                iconName="exclamationcircleo" 
-                iconColor={color} 
-                iconSize={size} 
-              />
-            ),
-          }}
+          key={index}
+          name={screen.name}
+          component={screen.component}
+          initialParams={screen.initialParams}
+          options={screen.options}
         />
-      )}
+      ))}
     </Drawer.Navigator>
   );
 }

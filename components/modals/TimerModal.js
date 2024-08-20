@@ -6,9 +6,17 @@ const TimerModal = ({ visible, onClose }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const options = [
-    { label: 'Option 1', value: 'option1' },
-    { label: 'Option 2', value: 'option2' },
-    { label: 'Option 3', value: 'option3' },
+    { label: 'Never', value: 'never' },
+    { label: 'Every minute', value: 'every minute' },
+    { label: 'Every 2 minutes', value: 'every 2 minutes' },
+    { label: 'Every 5 minutes', value: 'every 5 minutes' },
+    { label: 'Every 15 minutes', value: 'every 15 minutes' },
+    { label: 'Every 30 minutes', value: 'every 30 minutes' },
+    { label: 'Every hour', value: 'every hour' },
+    { label: 'Every 2 hours', value: 'every 2 hours' },
+    { label: 'Every 3 hours', value: 'every 3 hours' },
+    { label: 'Every 6 hours', value: 'every 6 hours' },
+    { label: 'Every day', value: 'every day' },
   ];
 
   return (

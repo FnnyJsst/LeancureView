@@ -13,12 +13,20 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 import TimerModal from '../components/modals/TimerModal';
+import ChannelsList from '../components/modals/ChannelsList';
+import { getDrawerScreens } from '../components/drawers/DrawerNavigator'; // Import the function to get drawer screens
+import { useUrls } from '../context/UrlContext';
 
 export default function SettingsScreen() {
+
   const navigation = useNavigation();
+  const { urls } = useUrls(); // Get URLs from context
+  const screens = getDrawerScreens(urls).map(screen => screen.name); // Extract screen names
+
   const [isEnabled, setIsEnabled] = useState(false);
   const [accessText, setAccessText] = useState('Read-only access');
   const [modalVisible, setModalVisible] = useState(false);
+  const [ChannelsListVisible, setChannelsListVisible] = useState(false);
 
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
@@ -36,6 +44,11 @@ export default function SettingsScreen() {
   const closeModal = () => {
     setModalVisible(false);
   };
+
+  const openChannelsListModal = () => setChannelsListVisible(true); 
+  const closeCHannelsListModal = () => setChannelsListVisible(false); 
+
+
 
   return (
     <ScrollView>
@@ -73,12 +86,12 @@ export default function SettingsScreen() {
           <SettingsButton
             title="Auto-refresh"
             icon={<MaterialCommunityIcons name="reload" size={24} color="black" />}
-            onPress={openModal}
           />
           <Text style={styles.text}>Never</Text>
           <SettingsButton
             title="View channels list"
-            icon={<Ionicons name="list" size={24} />}
+            icon={<Ionicons name="list" size={24}/>} 
+            onPress={openChannelsListModal}
           />
           <HorizontalLine />
           <TitleSettings title="SECURITY" />
@@ -92,6 +105,7 @@ export default function SettingsScreen() {
         </View>
       </View>
       <TimerModal visible={modalVisible} onClose={closeModal} />
+      <ChannelsList visible={ChannelsListVisible} onClose={closeCHannelsListModal} screens={screens} />
     </ScrollView>
   );
 }
