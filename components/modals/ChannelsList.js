@@ -1,4 +1,6 @@
 import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Button from '../buttons/Button';
+import TitleModal from '../text/TitleModal';
 
 export default function ChannelsList({ visible, onClose, screens }) {
   return (
@@ -10,13 +12,11 @@ export default function ChannelsList({ visible, onClose, screens }) {
     >
       <View style = {styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.title}>Channels list</Text>
+          <TitleModal style={styles.title} title={"CHANNEL LIST"} />
           {screens.map((screen, index) => (
             <Text key={index} style={styles.screenName}>{screen}</Text>
           ))}
-          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>Close</Text>
-          </TouchableOpacity>
+          <Button title="Close" backgroundColor="#FF4500" color="white" onPress={onClose} />
         </View>
       </View>
     </Modal>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    width: '80%',
+    width: '30%',
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,

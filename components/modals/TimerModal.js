@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
 import Button from '../buttons/Button';
+import TitleModal from '../text/TitleModal';
 
 const TimerModal = ({ visible, onClose }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -28,7 +29,7 @@ const TimerModal = ({ visible, onClose }) => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.title}>AUTO-RELOAD VIEW</Text>
+          <TitleModal title="AUTO-RELOAD VIEW" />
           {options.map((option) => (
             <TouchableOpacity
               key={option.value}
@@ -62,12 +63,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     backgroundColor: '#f4f4f4',
-  },
-  title: {
-    fontFamily: 'Montserrat',
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginBottom: 20,
   },
   radioContainer: {
     flexDirection: 'row',

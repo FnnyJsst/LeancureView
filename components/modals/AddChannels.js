@@ -3,6 +3,7 @@ import { Modal, View, Text, StyleSheet } from 'react-native';
 import ModalInput from '../inputs/ModalInput';
 import Button from '../buttons/Button';
 import { useUrls } from '../../context/UrlContext';
+import TitleModal from '../text/TitleModal';
 
 export default function AddChannels({ visible, onClose }) {
   const [url, setUrl] = useState('');
@@ -23,7 +24,7 @@ export default function AddChannels({ visible, onClose }) {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalText}>Create a new channel</Text>
+          <TitleModal title="CREATE A NEW CHANNEL" />
           <View style={styles.inputContainer}>
             <Text style={styles.text}>Name</Text>
             <ModalInput />
@@ -55,11 +56,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f4f4f4',
     borderRadius: 10,
     alignItems: 'center',
-  },
-  modalText: {
-    fontSize: 20,
-    marginBottom: 30,
-    fontWeight: 'bold',
   },
   inputContainer: {
     flexDirection: 'row',

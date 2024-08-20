@@ -86,6 +86,7 @@ export default function SettingsScreen() {
           <SettingsButton
             title="Auto-refresh"
             icon={<MaterialCommunityIcons name="reload" size={24} color="black" />}
+            onPress={openModal}
           />
           <Text style={styles.text}>Never</Text>
           <SettingsButton
