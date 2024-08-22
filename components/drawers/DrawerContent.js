@@ -30,7 +30,7 @@ export default function DrawerContent(props) {
   };
 
   if (!fontsLoaded) {
-    return <ActivityIndicator size="small" color="#0000ff" />; 
+    return <ActivityIndicator size="small" color="#ff4500" />; 
   }
 
   return (
