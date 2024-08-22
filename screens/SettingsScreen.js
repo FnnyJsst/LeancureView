@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, BackHandler } from 'react-native';
 import Header from '../components/Header';
 import TitleSettings from '../components/text/TitleSettings';

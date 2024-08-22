@@ -33,7 +33,6 @@ export default function AddChannels({ visible, onClose }) {
     }
   };
   
-
   return (
     <Modal
       animationType="slide"

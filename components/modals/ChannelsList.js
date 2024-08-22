@@ -1,4 +1,4 @@
-import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Modal, View, Text, StyleSheet } from 'react-native';
 import Button from '../buttons/Button';
 import TitleModal from '../text/TitleModal';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import NetInfo from "@react-native-community/netinfo";
@@ -17,17 +17,11 @@ const WebViewScreen = ({ route }) => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    console.log("URL chargée :", url);
-    console.log("Connecté à Internet :", isConnected);
-  }, [url, isConnected]);
-
   const handleLoadStart = () => setIsLoading(true);
   const handleLoadEnd = () => setIsLoading(false);
 
   const handleError = (syntheticEvent) => {
     const { nativeEvent } = syntheticEvent;
-    console.error('WebView error details:', JSON.stringify(nativeEvent, null, 2));
     setError(nativeEvent);
     setIsLoading(false);
   };
