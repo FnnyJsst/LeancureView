@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import NetInfo from "@react-native-community/netinfo";
+import { useUrls } from '../context/UrlContext';
 
 const WebViewScreen = ({ route }) => {
-  const { url } = route.params;
+  const { url, index } = route.params;
+  const { updateTitle } = useUrls();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isConnected, setIsConnected] = useState(true);
@@ -24,6 +26,12 @@ const WebViewScreen = ({ route }) => {
     const { nativeEvent } = syntheticEvent;
     setError(nativeEvent);
     setIsLoading(false);
+  };
+
+  const handleNavigationStateChange = (navState) => {
+    if (navState.title) {
+      updateTitle(index, navState.title);
+    }
   };
 
   if (!isConnected) {
@@ -52,6 +60,7 @@ const WebViewScreen = ({ route }) => {
         onLoadStart={handleLoadStart}
         onLoadEnd={handleLoadEnd}
         onError={handleError}
+        onNavigationStateChange={handleNavigationStateChange}
         startInLoadingState={true}
         javaScriptEnabled={true}
         domStorageEnabled={true}

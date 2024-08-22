@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
 import { useUrls } from '../../context/UrlContext';
@@ -9,17 +9,19 @@ import EditChannel from '../modals/EditChannel';
 
 const Drawer = createDrawerNavigator();
 
-export const getDrawerScreens = (urls, onMoveUp, onMoveDown, onEdit, onDelete) => {
+export const getDrawerScreens = (urls, titles, onMoveUp, onMoveDown, onEdit, onDelete) => {
   if (urls.length > 0) {
     return urls.map((url, index) => ({
       name: `WebView ${index + 1}`,
       component: WebViewScreen,
-      initialParams: { url },
+      initialParams: { 
+        url, 
+        index
+      },
       options: {
         drawerLabel: ({ color, size }) => (
           <DrawerLabel 
-            label={`WebView ${index + 1}`} 
-            iconName="chrome" 
+            label={titles[index] || `WebView ${index + 1}`} 
             iconColor={color} 
             iconSize={size} 
             onMoveUp={() => onMoveUp(index)}
@@ -49,10 +51,19 @@ export const getDrawerScreens = (urls, onMoveUp, onMoveDown, onEdit, onDelete) =
 };
 
 export default function DrawerNavigator() {
-  const { urls, updateUrl } = useUrls();
+  const { urls, titles, updateUrl } = useUrls();
   const [screensOrder, setScreensOrder] = useState(urls);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
+
+  useEffect(() => {
+    setScreensOrder(urls);
+  }, [urls]);
+
+  useEffect(() => {
+    // Force re-render when titles change
+    setScreensOrder([...urls]);
+  }, [titles]);
 
   const handleMoveUp = (index) => {
     if (index > 0) {
@@ -91,7 +102,7 @@ export default function DrawerNavigator() {
     updateUrl(index, null);
   };
 
-  const screens = getDrawerScreens(urls, handleMoveUp, handleMoveDown, handleEdit, handleDelete);
+  const screens = getDrawerScreens(urls, titles, handleMoveUp, handleMoveDown, handleEdit, handleDelete);
 
   return (
     <>
