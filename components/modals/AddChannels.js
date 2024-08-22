@@ -9,11 +9,30 @@ export default function AddChannels({ visible, onClose }) {
   const [url, setUrl] = useState('');
   const { addUrl } = useUrls();
 
-  const handleOk = () => {
-    addUrl(url);
-    setUrl('');
-    onClose();
+  const isValidUrl = (string) => {
+    try {
+      const url = new URL(string);
+      return url.protocol === "http:" || url.protocol === "https:";
+    } catch (_) {
+      return false;
+    }
   };
+  
+  const handleOk = () => {
+    let formattedUrl = url.trim();
+    if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
+      formattedUrl = `https://${formattedUrl}`;
+    }
+    
+    if (isValidUrl(formattedUrl)) {
+      addUrl(formattedUrl);
+      setUrl('');
+      onClose();
+    } else {
+      alert("Veuillez entrer une URL valide");
+    }
+  };
+  
 
   return (
     <Modal

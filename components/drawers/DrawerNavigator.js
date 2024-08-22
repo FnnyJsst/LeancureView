@@ -90,7 +90,52 @@ export default function DrawerNavigator() {
     setEditModalVisible(false);
   };
 
-  const screens = getDrawerScreens(screensOrder, handleMoveUp, handleMoveDown, handleEdit, handleDelete);
+  const screens = urls.length > 0 
+  ? urls.map((url, index) => {
+      console.log(`URL for WebView ${index + 1}:`, url);
+      const isValidUrl = (string) => {
+        try {
+          new URL(string);
+          return true;
+        } catch (_) {
+          return false;
+        }
+      };
+      const validUrl = isValidUrl(url) ? url : 'https://example.com';
+      return {
+        name: `WebView ${index + 1}`,
+        component: WebViewScreen,
+        initialParams: { url: validUrl },
+        options: {
+          drawerLabel: ({ color, size }) => (
+            <DrawerLabel 
+              label={`WebView ${index + 1}`} 
+              iconName="chrome" 
+              iconColor={color} 
+              iconSize={size} 
+              onMoveUp={() => handleMoveUp(index)}
+              onMoveDown={() => handleMoveDown(index)}
+              onEdit={(newUrl) => handleEdit(index, newUrl)}
+              onDelete={() => handleDelete(index)}
+            />
+          ),
+        },
+      };
+    })
+    : [{
+        name: "No Channel",
+        component: NoChannelScreen,
+        options: {
+          drawerLabel: ({ color, size }) => (
+            <DrawerLabel 
+              label="No Channel" 
+              iconName="exclamationcircleo" 
+              iconColor={color} 
+              iconSize={size} 
+            />
+          ),
+        },
+      }];
 
   return (
     <>

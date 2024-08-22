@@ -35,7 +35,11 @@ export const UrlProvider = ({ children }) => {
   }, [urls]);
 
   const addUrl = (url) => {
-    setUrls((prevUrls) => [...prevUrls, url]);
+    let formattedUrl = url.trim();
+    if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
+      formattedUrl = `https://${formattedUrl}`;
+    }
+    setUrls((prevUrls) => [...prevUrls, formattedUrl]);
   };
 
   return (
