@@ -72,11 +72,6 @@ export default function DrawerNavigator() {
     }
   };
 
-  const handleDelete = (index) => {
-    const newOrder = screensOrder.filter((_, i) => i !== index);
-    setScreensOrder(newOrder);
-  };
-
   const handleEdit = (index) => {
     setCurrentEditIndex(index);
     setEditModalVisible(true);
@@ -86,56 +81,17 @@ export default function DrawerNavigator() {
     const newOrder = [...screensOrder];
     newOrder[currentEditIndex] = newUrl;
     setScreensOrder(newOrder);
-    updateUrl(currentEditIndex, newUrl); // Assuming updateUrl is a function in useUrls context
+    updateUrl(currentEditIndex, newUrl); 
     setEditModalVisible(false);
   };
 
-  const screens = urls.length > 0 
-  ? urls.map((url, index) => {
-      console.log(`URL for WebView ${index + 1}:`, url);
-      const isValidUrl = (string) => {
-        try {
-          new URL(string);
-          return true;
-        } catch (_) {
-          return false;
-        }
-      };
-      const validUrl = isValidUrl(url) ? url : 'https://example.com';
-      return {
-        name: `WebView ${index + 1}`,
-        component: WebViewScreen,
-        initialParams: { url: validUrl },
-        options: {
-          drawerLabel: ({ color, size }) => (
-            <DrawerLabel 
-              label={`WebView ${index + 1}`} 
-              iconName="chrome" 
-              iconColor={color} 
-              iconSize={size} 
-              onMoveUp={() => handleMoveUp(index)}
-              onMoveDown={() => handleMoveDown(index)}
-              onEdit={(newUrl) => handleEdit(index, newUrl)}
-              onDelete={() => handleDelete(index)}
-            />
-          ),
-        },
-      };
-    })
-    : [{
-        name: "No Channel",
-        component: NoChannelScreen,
-        options: {
-          drawerLabel: ({ color, size }) => (
-            <DrawerLabel 
-              label="No Channel" 
-              iconName="exclamationcircleo" 
-              iconColor={color} 
-              iconSize={size} 
-            />
-          ),
-        },
-      }];
+  const handleDelete = (index) => {
+    const newOrder = screensOrder.filter((_, i) => i !== index);
+    setScreensOrder(newOrder);
+    updateUrl(index, null);
+  };
+
+  const screens = getDrawerScreens(urls, handleMoveUp, handleMoveDown, handleEdit, handleDelete);
 
   return (
     <>

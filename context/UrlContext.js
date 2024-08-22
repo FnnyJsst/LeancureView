@@ -42,8 +42,20 @@ export const UrlProvider = ({ children }) => {
     setUrls((prevUrls) => [...prevUrls, formattedUrl]);
   };
 
+  const updateUrl = (index, newUrl) => {
+    setUrls((prevUrls) => {
+      if (newUrl === null) {
+        return prevUrls.filter((_, i) => i !== index);
+      } else {
+        const updatedUrls = [...prevUrls];
+        updatedUrls[index] = newUrl;
+        return updatedUrls;
+      }
+    });
+  };
+
   return (
-    <UrlContext.Provider value={{ urls, setUrls, addUrl }}>
+    <UrlContext.Provider value={{ urls, setUrls, addUrl, updateUrl }}>
       {children}
     </UrlContext.Provider>
   );
