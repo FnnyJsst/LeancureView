@@ -51,7 +51,7 @@ export const getDrawerScreens = (urls, titles, onMoveUp, onMoveDown, onEdit, onD
 };
 
 export default function DrawerNavigator() {
-  const { urls, titles, updateUrl } = useUrls();
+  const { urls, titles, updateUrl, updateTitle } = useUrls();
   const [screensOrder, setScreensOrder] = useState(urls);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
@@ -88,11 +88,12 @@ export default function DrawerNavigator() {
     setEditModalVisible(true);
   };
 
-  const handleEditSave = (newUrl) => {
+  const handleEditSave = (newUrl, newTitle) => {
     const newOrder = [...screensOrder];
     newOrder[currentEditIndex] = newUrl;
     setScreensOrder(newOrder);
     updateUrl(currentEditIndex, newUrl); 
+    updateTitle(currentEditIndex, newTitle);
     setEditModalVisible(false);
   };
 
@@ -139,6 +140,7 @@ export default function DrawerNavigator() {
         onClose={() => setEditModalVisible(false)} 
         onSave={handleEditSave} 
         initialUrl={screensOrder[currentEditIndex]}
+        initialTitle={titles[currentEditIndex]}
       />
     </>
   );

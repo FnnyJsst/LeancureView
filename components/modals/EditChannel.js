@@ -5,13 +5,14 @@ import Button from '../buttons/Button';
 import { useUrls } from '../../context/UrlContext';
 import TitleModal from '../text/TitleModal';
 
-export default function EditChannel({ visible, onClose }) {
-  const [url, setUrl] = useState('');
-  const { addUrl } = useUrls();
+export default function EditChannel({ visible, onClose, onSave, initialUrl, initialTitle }) {
+  const [url, setUrl] = useState(initialUrl || '');
+  const [title, setTitle] = useState(initialTitle || '');
 
   const handleOk = () => {
-    addUrl(url);
+    onSave(url, title);
     setUrl('');
+    setTitle('');
     onClose();
   };
 
@@ -27,7 +28,7 @@ export default function EditChannel({ visible, onClose }) {
           <TitleModal title="EDIT A CHANNEL" />
           <View style={styles.inputContainer}>
             <Text style={styles.text}>Name</Text>
-            <ModalInput />
+            <ModalInput value={title} onChangeText={setTitle} />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.text}>URL</Text>
