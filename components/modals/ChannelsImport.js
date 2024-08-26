@@ -27,7 +27,11 @@ export default function ChannelsImport({ visible, onClose }) {
           <TitleModal title="IMPORT CHANNELS" />
           <View style={styles.inputContainer}>
             <Text style={styles.text}>URL</Text>
-            <ModalInput value={url} onChangeText={setUrl} />
+            <ModalInput 
+              value={url} 
+              onChangeText={setUrl} 
+              placeholder={"Paste your channels here"}
+            />
           </View>
           <View style={styles.buttonContainer}>
             <Button title="Ok" backgroundColor="#FF4500" color="white" onPress={handleOk} />

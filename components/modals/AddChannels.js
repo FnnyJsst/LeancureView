@@ -45,11 +45,14 @@ export default function AddChannels({ visible, onClose }) {
           <TitleModal title="CREATE A NEW CHANNEL" />
           <View style={styles.inputContainer}>
             <Text style={styles.text}>Name</Text>
-            <ModalInput />
+            <ModalInput placeholder={"Name of the channel"}/>
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.text}>URL</Text>
-            <ModalInput value={url} onChangeText={setUrl} />
+            <ModalInput 
+              value={url} 
+              onChangeText={setUrl}
+              placeholder={"URL of the channel"}/>
           </View>
           <View style={styles.buttonContainer}>
             <Button title="Ok" backgroundColor="#FF4500" color="white" onPress={handleOk} />

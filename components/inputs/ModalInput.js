@@ -1,13 +1,12 @@
 import { TextInput, StyleSheet } from "react-native";
 
-export default function ModalInput({ value, onChangeText }) {
+export default function ModalInput({ value, onChangeText, placeholder }) {
   return (
     <TextInput
       style={styles.input}
-      placeholder="Paste your channels here"
       value={value}
       onChangeText={onChangeText}
-    />
+      placeholder={placeholder}/>
   );
 }
 
