@@ -36,8 +36,24 @@ export const UrlProvider = ({ children }) => {
     saveUrls();
   }, [urls]);
 
+  // const loadInitialTitles = async (loadedUrls) => {
+  //   const newTitles = await Promise.all(
+  //     loadedUrls.map(async (url) => {
+  //       try {
+  //         const response = await fetch(url);
+  //         const html = await response.text();
+  //         const titleMatch = html.match(/<title>(.*?)<\/title>/i);
+  //         return titleMatch ? titleMatch[1] : '';
+  //       } catch (error) {
+  //         console.error('Failed to load title for', url, error);
+  //         return '';
+  //       }
+  //     })
+  //   );
+  //   setTitles((prevTitles) => [...prevTitles.slice(0, -1), ...newTitles]);
+  // };
   const loadInitialTitles = async (loadedUrls) => {
-    const initialTitles = await Promise.all(
+    const newTitles = await Promise.all(
       loadedUrls.map(async (url) => {
         try {
           const response = await fetch(url);
@@ -50,18 +66,52 @@ export const UrlProvider = ({ children }) => {
         }
       })
     );
-    setTitles(initialTitles);
+    setTitles((prevTitles) => [...prevTitles.slice(0, -loadedUrls.length), ...newTitles]);
   };
 
-  const addUrl = (url) => {
-    let formattedUrl = url.trim();
-    if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
-      formattedUrl = `https://${formattedUrl}`;
-    }
-    setUrls((prevUrls) => [...prevUrls, formattedUrl]);
-    setTitles((prevTitles) => [...prevTitles, '']);
+// const addUrl = (url) => {
+//   let formattedUrl = url.trim();
+//   if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
+//     formattedUrl = `https://${formattedUrl}`;
+//   }
+
+//   if (!urls.includes(formattedUrl)) {
+//     setUrls((prevUrls) => [...prevUrls, formattedUrl]);
+//     setTitles((prevTitles) => [...prevTitles, '']); // Ajoutez un titre vide pour la nouvelle URL
+//     loadInitialTitles([formattedUrl]);
+//   } else {
+//     console.warn("Cette URL existe déjà.");
+//   }
+    
+//     // setUrls((prevUrls) => [...prevUrls, formattedUrl]);
+//     // setTitles((prevTitles) => [...prevTitles, '']);
+//     // loadInitialTitles([formattedUrl]);
+//   };
+const addUrl = (url) => {
+  let formattedUrl = url.trim();
+  if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
+    formattedUrl = `https://${formattedUrl}`;
+  }
+
+  // Vérifiez si l'URL existe déjà
+  if (!urls.includes(formattedUrl)) {
+    setUrls((prevUrls) => {
+      const newUrls = [...prevUrls, formattedUrl];
+      // Sauvegardez les nouvelles URLs immédiatement
+      AsyncStorage.setItem('urls', JSON.stringify(newUrls)).catch(error => 
+        console.error('Failed to save URLs', error)
+      );
+      return newUrls;
+    });
+    
+    setTitles((prevTitles) => [...prevTitles, '']); // Ajoutez un titre vide pour la nouvelle URL
+    
+    // Chargez le titre pour la nouvelle URL uniquement
     loadInitialTitles([formattedUrl]);
-  };
+  } else {
+    console.warn("Cette URL existe déjà.");
+  }
+};
 
   const updateUrl = (index, newUrl) => {
     setUrls((prevUrls) => {
