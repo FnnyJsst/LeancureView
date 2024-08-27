@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons, Feather, Entypo } from '@expo/vector-icons';
 
+// Header is a component that displays the header of the drawer
 export default function Header({ title, onBackPress, onImportPress, onAddPress, showIcons }) {
   return (
     <View style={styles.headerContainer}>

@@ -4,6 +4,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+// DrawerLabel is a component that displays the label of the channel in the drawer
 const DrawerLabel = ({ label, iconName, iconColor, iconSize, onMoveUp, onMoveDown, onEdit, onDelete }) => {
   const [upColor, setUpColor] = useState('black');
   const [downColor, setDownColor] = useState('black');
@@ -13,6 +14,7 @@ const DrawerLabel = ({ label, iconName, iconColor, iconSize, onMoveUp, onMoveDow
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
+      {/* If there is one or more channels, we show some icons to move, edit and delete the channel */}
       {label !== "No Channel" && (
         <>
           <View style={styles.arrowContainer}>

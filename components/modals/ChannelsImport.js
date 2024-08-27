@@ -9,6 +9,7 @@ export default function ChannelsImport({ visible, onClose }) {
   const [url, setUrl] = useState('');
   const { addUrl } = useUrls();
 
+  // Function to handle the "Ok" button
   const handleOk = () => {
     addUrl(url);
     setUrl('');

@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
 import ModalInput from '../inputs/ModalInput';
 import Button from '../buttons/Button';
-import { useUrls } from '../../context/UrlContext';
 import TitleModal from '../text/TitleModal';
 
 export default function EditChannel({ visible, onClose, onSave, initialUrl, initialTitle }) {
   const [url, setUrl] = useState(initialUrl || '');
   const [title, setTitle] = useState(initialTitle || '');
 
+  // Function to handle the "Ok" button
   const handleOk = () => {
     onSave(url, title);
     setUrl('');

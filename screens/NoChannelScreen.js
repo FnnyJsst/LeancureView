@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 
+// NoChannelScreen is a screen that is displayed when there are no channels
 export default function NoChannelScreen() {
   return (
     <View style={styles.container}>

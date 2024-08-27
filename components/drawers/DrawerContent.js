@@ -10,11 +10,13 @@ export default function DrawerContent(props) {
   const [isImportModalVisible, setImportModalVisible] = useState(false);
   const [isAddModalVisible, setAddModalVisible] = useState(false);
 
+  // Fonts
   const [fontsLoaded, error] = useFonts({
     'Montserrat': require('../../assets/fonts/Montserrat-Regular.ttf'),
     'Montserrat-medium': require('../../assets/fonts/Montserrat-Medium.ttf'),
   });
 
+  // Functions to open and close both modal windows
   const openImportModal = () => {
     setImportModalVisible(true);
   };
@@ -29,6 +31,7 @@ export default function DrawerContent(props) {
     setAddModalVisible(false);
   };
 
+  // If the fonts are not loaded, show an activity indicator
   if (!fontsLoaded) {
     return <ActivityIndicator size="small" color="#ff4500" />; 
   }

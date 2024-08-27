@@ -6,6 +6,7 @@ import TitleModal from '../text/TitleModal';
 const TimerModal = ({ visible, onClose }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
+  // Options for the timer modal
   const options = [
     { label: 'Never', value: 'never' },
     { label: 'Every minute', value: 'every minute' },

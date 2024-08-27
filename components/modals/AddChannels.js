@@ -9,6 +9,7 @@ export default function AddChannels({ visible, onClose }) {
   const [url, setUrl] = useState('');
   const { addUrl } = useUrls();
 
+  // Function to check if the URL is valid
   const isValidUrl = (string) => {
     try {
       const url = new URL(string);
@@ -18,12 +19,14 @@ export default function AddChannels({ visible, onClose }) {
     }
   };
   
+  // Function to handle the "Ok" button
   const handleOk = () => {
     let formattedUrl = url.trim();
     if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
       formattedUrl = `https://${formattedUrl}`;
     }
     
+    // If the URL is valid, we add it to the URLs
     if (isValidUrl(formattedUrl)) {
       addUrl(formattedUrl);
       setUrl('');

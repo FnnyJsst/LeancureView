@@ -28,6 +28,7 @@ const WebViewScreen = ({ route }) => {
     setIsLoading(false);
   };
 
+  // This function is used to update the title of the URL if the title is not empty
   const handleNavigationStateChange = (navState) => {
     if (navState.title) {
       updateTitle(index, navState.title);
@@ -42,6 +43,7 @@ const WebViewScreen = ({ route }) => {
     );
   }
 
+  // If there is an error, we display the error message
   if (error) {
     return (
       <View style={styles.errorContainer}>

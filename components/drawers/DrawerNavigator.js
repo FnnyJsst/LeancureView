@@ -9,7 +9,9 @@ import EditChannel from '../modals/EditChannel';
 
 const Drawer = createDrawerNavigator();
 
+// This function is used to get the screens to display in the drawer
 export const getDrawerScreens = (urls, titles, onMoveUp, onMoveDown, onEdit, onDelete) => {
+  // If there is one or more channels, we show the channels in the drawer
   if (urls.length > 0) {
     return urls.map((url, index) => ({
       name: `WebView ${index + 1}`,
@@ -34,6 +36,7 @@ export const getDrawerScreens = (urls, titles, onMoveUp, onMoveDown, onEdit, onD
     }));
   } else {
     return [{
+      // If there is no channel, we show the NoChannelScreen
       name: "No Channel",
       component: NoChannelScreen,
       options: {
@@ -65,6 +68,7 @@ export default function DrawerNavigator() {
     setScreensOrder([...urls]);
   }, [titles]);
 
+  // Functions to move the channels up and down in the drawer
   const handleMoveUp = (index) => {
     if (index > 0) {
       const newOrder = [...screensOrder];
@@ -83,11 +87,13 @@ export default function DrawerNavigator() {
     }
   };
 
+  // Function to edit the channel
   const handleEdit = (index) => {
     setCurrentEditIndex(index);
     setEditModalVisible(true);
   };
 
+  // Function to save the edited channel
   const handleEditSave = (newUrl, newTitle) => {
     const newOrder = [...screensOrder];
     newOrder[currentEditIndex] = newUrl;
