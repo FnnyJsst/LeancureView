@@ -120,20 +120,37 @@ const addUrl = (url) => {
 };
 
   // This function is used to update a URL
-  const updateUrl = (index, newUrl) => {
-    setUrls((prevUrls) => {
-      if (newUrl === null) {
-        setTitles((prevTitles) => prevTitles.filter((_, i) => i !== index));
-        return prevUrls.filter((_, i) => i !== index);
-      } else {
-        const updatedUrls = [...prevUrls];
-        updatedUrls[index] = newUrl;
-        loadInitialTitles([newUrl]);
-        return updatedUrls;
-      }
-    });
+  // const updateUrl = (index, newUrl) => {
+  //   setUrls((prevUrls) => {
+  //     if (newUrl === null) {
+  //       setTitles((prevTitles) => prevTitles.filter((_, i) => i !== index));
+  //       return prevUrls.filter((_, i) => i !== index);
+  //     } else {
+  //       const updatedUrls = [...prevUrls];
+  //       updatedUrls[index] = newUrl;
+  //       loadInitialTitles([newUrl]);
+  //       return updatedUrls;
+  //     }
+  //   });
+  // };
+  
+  // const updateTitle = (index, newTitle) => {
+  //   setTitles((prevTitles) => {
+  //     const updatedTitles = [...prevTitles];
+  //     updatedTitles[index] = newTitle;
+  //     return updatedTitles;
+  //   });
+
+  // };
+
+  const updateUrl = (newUrls) => {
+    setUrls(newUrls);
+    AsyncStorage.setItem('urls', JSON.stringify(newUrls)).catch(error => 
+      console.error('Failed to save URLs', error)
+    );
+    loadInitialTitles(newUrls);
   };
- 
+
   const updateTitle = (index, newTitle) => {
     setTitles((prevTitles) => {
       const updatedTitles = [...prevTitles];

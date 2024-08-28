@@ -11,7 +11,6 @@ const Drawer = createDrawerNavigator();
 
 // This function is used to get the screens to display in the drawer
 export const getDrawerScreens = (urls, titles, onMoveUp, onMoveDown, onEdit, onDelete) => {
-  // If there is one or more channels, we show the channels in the drawer
   if (urls.length > 0) {
     return urls.map((url, index) => ({
       name: `WebView ${index + 1}`,
@@ -34,9 +33,9 @@ export const getDrawerScreens = (urls, titles, onMoveUp, onMoveDown, onEdit, onD
         ),
       },
     }));
+
   } else {
     return [{
-      // If there is no channel, we show the NoChannelScreen
       name: "No Channel",
       component: NoChannelScreen,
       options: {
@@ -58,6 +57,7 @@ export default function DrawerNavigator() {
   const [screensOrder, setScreensOrder] = useState(urls);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
+  
 
   useEffect(() => {
     setScreensOrder(urls);
@@ -69,23 +69,54 @@ export default function DrawerNavigator() {
   }, [titles]);
 
   // Functions to move the channels up and down in the drawer
+  // ... existing code ...
+
   const handleMoveUp = (index) => {
+    console.log("handleMoveUp called with index:", index);
     if (index > 0) {
       const newOrder = [...screensOrder];
       const [movedScreen] = newOrder.splice(index, 1);
-      newOrder.unshift(movedScreen);
+      newOrder.splice(index - 1, 0, movedScreen);
+      console.log("New screensOrder:", newOrder);
       setScreensOrder(newOrder);
+  
+      const newUrls = [...urls];
+      const [movedUrl] = newUrls.splice(index, 1);
+      newUrls.splice(index - 1, 0, movedUrl);
+      console.log("New urls:", newUrls);
+      updateUrl(newUrls);
+  
+      const newTitles = [...titles];
+      const [movedTitle] = newTitles.splice(index, 1);
+      newTitles.splice(index - 1, 0, movedTitle);
+      console.log("New titles:", newTitles);
+      updateTitle(newTitles);
     }
   };
-
+  
   const handleMoveDown = (index) => {
+    console.log("handleMoveDown called with index:", index);
     if (index < screensOrder.length - 1) {
       const newOrder = [...screensOrder];
       const [movedScreen] = newOrder.splice(index, 1);
       newOrder.splice(index + 1, 0, movedScreen);
+      console.log("New screensOrder:", newOrder);
       setScreensOrder(newOrder);
+  
+      const newUrls = [...urls];
+      const [movedUrl] = newUrls.splice(index, 1);
+      newUrls.splice(index + 1, 0, movedUrl);
+      console.log("New urls:", newUrls);
+      updateUrl(newUrls);
+  
+      const newTitles = [...titles];
+      const [movedTitle] = newTitles.splice(index, 1);
+      newTitles.splice(index + 1, 0, movedTitle);
+      console.log("New titles:", newTitles);
+      updateTitle(newTitles);
     }
   };
+
 
   // Function to edit the channel
   const handleEdit = (index) => {
