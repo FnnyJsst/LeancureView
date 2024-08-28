@@ -2,7 +2,7 @@ import { Modal, View, Text, StyleSheet } from 'react-native';
 import Button from '../buttons/Button';
 import TitleModal from '../text/TitleModal';
 
-export default function ChannelsList({ visible, onClose, screens }) {
+export default function ChannelsList({ visible, onClose, screens, titles }) {
   return (
     <Modal
       transparent={true}
@@ -14,7 +14,7 @@ export default function ChannelsList({ visible, onClose, screens }) {
         <View style={styles.modalContent}>
           <TitleModal style={styles.title} title={"CHANNEL LIST"} />
           {screens.map((screen, index) => (
-            <Text key={index} style={styles.screenName}>{screen}</Text>
+            <Text key={index} style={styles.screenName}>{titles[index]}</Text>
           ))}
           <Button title="Close" backgroundColor="#d9d9d9" color="black" onPress={onClose} />
         </View>

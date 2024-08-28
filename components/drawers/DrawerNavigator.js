@@ -69,8 +69,6 @@ export default function DrawerNavigator() {
   }, [titles]);
 
   // Functions to move the channels up and down in the drawer
-  // ... existing code ...
-
   const handleMoveUp = (index) => {
     console.log("handleMoveUp called with index:", index);
     if (index > 0) {

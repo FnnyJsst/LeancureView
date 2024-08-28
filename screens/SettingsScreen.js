@@ -20,7 +20,7 @@ import { useUrls } from '../context/UrlContext';
 export default function SettingsScreen() {
 
   const navigation = useNavigation();
-  const { urls } = useUrls(); // Get URLs from context
+  const { urls, titles } = useUrls(); // Get URLs and titles from context
   const screens = getDrawerScreens(urls).map(screen => screen.name); // Extract screen names
 
   const [isEnabled, setIsEnabled] = useState(false);
@@ -47,8 +47,6 @@ export default function SettingsScreen() {
 
   const openChannelsListModal = () => setChannelsListVisible(true); 
   const closeCHannelsListModal = () => setChannelsListVisible(false); 
-
-
 
   return (
     <ScrollView>
@@ -106,7 +104,7 @@ export default function SettingsScreen() {
         </View>
       </View>
       <TimerModal visible={modalVisible} onClose={closeModal} />
-      <ChannelsList visible={ChannelsListVisible} onClose={closeCHannelsListModal} screens={screens} />
+      <ChannelsList visible={ChannelsListVisible} onClose={closeCHannelsListModal} screens={screens} titles={urls.map((url, index) => titles[index] || `WebView ${index + 1}`)} />
     </ScrollView>
   );
 }
