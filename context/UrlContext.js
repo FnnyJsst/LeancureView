@@ -12,11 +12,13 @@ export const UrlProvider = ({ children }) => {
     const loadUrls = async () => {
       try {
         const storedUrls = await AsyncStorage.getItem('urls');
+        // if we have stored urls, we load them
         if (storedUrls) {
           const parsedUrls = JSON.parse(storedUrls);
           setUrls(parsedUrls);
           loadInitialTitles(parsedUrls);
         }
+      // if we don't, we log an error
       } catch (error) {
         console.error('Failed to load URLs', error);
       }
@@ -30,6 +32,7 @@ export const UrlProvider = ({ children }) => {
     const saveUrls = async () => {
       try {
         await AsyncStorage.setItem('urls', JSON.stringify(urls));
+        // If we don't have any urls, we log an error
       } catch (error) {
         console.error('Failed to save URLs', error);
       }
@@ -38,32 +41,21 @@ export const UrlProvider = ({ children }) => {
     saveUrls();
   }, [urls]);
 
-  // const loadInitialTitles = async (loadedUrls) => {
-  //   const newTitles = await Promise.all(
-  //     loadedUrls.map(async (url) => {
-  //       try {
-  //         const response = await fetch(url);
-  //         const html = await response.text();
-  //         const titleMatch = html.match(/<title>(.*?)<\/title>/i);
-  //         return titleMatch ? titleMatch[1] : '';
-  //       } catch (error) {
-  //         console.error('Failed to load title for', url, error);
-  //         return '';
-  //       }
-  //     })
-  //   );
-  //   setTitles((prevTitles) => [...prevTitles.slice(0, -1), ...newTitles]);
-  // };
-
   // This function is used to load the titles of the URLs
   const loadInitialTitles = async (loadedUrls) => {
     const newTitles = await Promise.all(
+      // We load the titles of the URLs
       loadedUrls.map(async (url) => {
         try {
+          // We fetch the URL
           const response = await fetch(url);
+          // We get the HTML of the URL
           const html = await response.text();
+          // We get the title of the URL
           const titleMatch = html.match(/<title>(.*?)<\/title>/i);
+          // We return the title of the URL
           return titleMatch ? titleMatch[1] : '';
+          // If we can't get the title, we log an error
         } catch (error) {
           console.error('Failed to load title for', url, error);
           return '';
@@ -72,25 +64,6 @@ export const UrlProvider = ({ children }) => {
     );
     setTitles((prevTitles) => [...prevTitles.slice(0, -loadedUrls.length), ...newTitles]);
   };
-
-// const addUrl = (url) => {
-//   let formattedUrl = url.trim();
-//   if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
-//     formattedUrl = `https://${formattedUrl}`;
-//   }
-
-//   if (!urls.includes(formattedUrl)) {
-//     setUrls((prevUrls) => [...prevUrls, formattedUrl]);
-//     setTitles((prevTitles) => [...prevTitles, '']); // Ajoutez un titre vide pour la nouvelle URL
-//     loadInitialTitles([formattedUrl]);
-//   } else {
-//     console.warn("Cette URL existe déjà.");
-//   }
-    
-//     // setUrls((prevUrls) => [...prevUrls, formattedUrl]);
-//     // setTitles((prevTitles) => [...prevTitles, '']);
-//     // loadInitialTitles([formattedUrl]);
-//   };
 
 // This function is used to add a URL to the URLs
 const addUrl = (url) => {
@@ -119,32 +92,10 @@ const addUrl = (url) => {
   }
 };
 
-  // This function is used to update a URL
-  // const updateUrl = (index, newUrl) => {
-  //   setUrls((prevUrls) => {
-  //     if (newUrl === null) {
-  //       setTitles((prevTitles) => prevTitles.filter((_, i) => i !== index));
-  //       return prevUrls.filter((_, i) => i !== index);
-  //     } else {
-  //       const updatedUrls = [...prevUrls];
-  //       updatedUrls[index] = newUrl;
-  //       loadInitialTitles([newUrl]);
-  //       return updatedUrls;
-  //     }
-  //   });
-  // };
-  
-  // const updateTitle = (index, newTitle) => {
-  //   setTitles((prevTitles) => {
-  //     const updatedTitles = [...prevTitles];
-  //     updatedTitles[index] = newTitle;
-  //     return updatedTitles;
-  //   });
-
-  // };
-
+  // This function is used to update the URLs
   const updateUrl = (newUrls) => {
     setUrls(newUrls);
+    // We save the new URLs to the AsyncStorage
     AsyncStorage.setItem('urls', JSON.stringify(newUrls)).catch(error => 
       console.error('Failed to save URLs', error)
     );
@@ -153,7 +104,9 @@ const addUrl = (url) => {
 
   const updateTitle = (index, newTitle) => {
     setTitles((prevTitles) => {
+      // We update the titles of the URLs
       const updatedTitles = [...prevTitles];
+      // We save the new titles to the AsyncStorage
       updatedTitles[index] = newTitle;
       return updatedTitles;
     });
